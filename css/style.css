@@ -12,9 +12,18 @@
 body {
     height: 100vh;
 }
-/* ---------------- formattazioni generiche */
+/* ---------------- formattazioni comuni */
+input {
+    border: none;
+}
+
 .box-avatar {
     display: flex;
+    position: relative;
+    padding: 5px;
+}
+.box-avatar.active {
+    background-color: #e9ebea;
 }
 
 .box-avatar img.avatar {
@@ -34,6 +43,14 @@ body {
 .box-avatar .avatar-details{
     color: #bdc6c3;
 }
+.orario-chat {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    color: #babab8;
+}
+
 
 
 /* --------------formattazione backgroud */
@@ -59,7 +76,7 @@ body {
 #app {
     position: relative;
     margin: 3vh auto;
-    min-height: 94vh;
+    height: 94vh;
     width: 80%;
     min-width: 1000px;
     background-color: #fff;
@@ -68,11 +85,9 @@ body {
 
 #app-left {
     width: 35%;
-    background-color: blue;
 }
 #app-right {
     width: 65%;
-    background-color: red;
 }
 .header {
     height: 90px;
@@ -107,4 +122,34 @@ body {
     font-size: 22px;
     color: #97dbfe;
     margin: 0 10px;
+}
+
+#ricerca {
+    height: 30px;
+    padding: 5px;
+    background-color: #f9f9f9;
+}
+#ricerca-bordo {
+    height: 100%;
+    border: 1px solid #f3f3f3;
+}
+#elenco-chat {
+    height: calc(100% - 210px);
+    overflow-y: scroll;
+}
+
+
+/* formattazione elementi app right */
+#chat {
+    height: calc(100% - 150px);
+    background-image: url('https://i.redd.it/qwd83nc4xxf41.jpg');
+    background-color: #fbfbfb;
+    background-position: center;
+    background-size: contain;
+    background-repeat: repeat;
+}
+
+#nuovo-messaggio {
+    height: 60px;
+    background-color: #f3eeea;
 }
