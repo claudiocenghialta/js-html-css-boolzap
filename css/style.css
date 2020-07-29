@@ -12,7 +12,9 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
     height: 100vh;
+
 }
 
 /* ---------------- formattazioni comuni */
@@ -53,7 +55,8 @@ i {
     margin: 3vh auto;
     height: 94vh;
     width: 80%;
-    min-width: 1000px;
+    min-width: 1200px;
+    max-width: 1400px;
     background-color: #fff;
     display: flex;
 }
@@ -77,6 +80,7 @@ i {
 .header-left {
     display: flex;
     align-items: center;
+    margin-left: 10px;
 }
 
 .header-right i {
@@ -106,9 +110,10 @@ i {
 
 #notifiche {
     height: 90px;
+    padding-left: 10px;
     background-color: #8edafc;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
 
 }
@@ -155,6 +160,7 @@ i {
     display: flex;
     position: relative;
     padding: 10px;
+    cursor: pointer;
 }
 
 .box-avatar:hover {
@@ -198,11 +204,12 @@ i {
 /* formattazione elementi app right */
 #chat {
     height: calc(100% - 150px);
-    background-image: url('https://i.redd.it/qwd83nc4xxf41.jpg');
+    background-image: url('https://i.pinimg.com/originals/85/70/f6/8570f6339d3189c96e340d47a581d3b8.jpg');
     background-color: #fbfbfb;
     background-position: center;
     background-size: contain;
     background-repeat: repeat;
+    overflow-y: scroll;
 }
 
 #nuovo-messaggio {
@@ -215,10 +222,11 @@ i {
 
 #nuovo-messaggio i {
     color: #666e70;
-    margin: 0 20px;
+    display: inline-block;
+    width: 10%;
+    text-align: center;
     font-size: 24px;
     display: none;
-
 }
 
 #nuovo-messaggio i.active {
@@ -242,8 +250,10 @@ i {
 
 /*---------------- formattazione template  */
 .message {
-    padding: 10px;
+    padding: 5px 10px;
     align-items: flex-start;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .message.received {
@@ -253,4 +263,14 @@ i {
 .message.sent {
     background-color: #d5f9bb;
     align-self: flex-end;
+}
+
+.message-text {
+    margin: 8px 8px 0;
+}
+
+.message-hour {
+    color: #bfc0bb;
+    font-size: 10px;
+    text-align: right;
 }
