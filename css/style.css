@@ -3,52 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
-.clearfix::after{
+
+.clearfix::after {
     content: '';
     display: table;
     clear: both;
 }
 
 body {
+    font-family: 'Open Sans', sans-serif;
     height: 100vh;
 }
+
 /* ---------------- formattazioni comuni */
 input {
     border: none;
 }
 
-.box-avatar {
-    display: flex;
-    position: relative;
-    padding: 5px;
-}
-.box-avatar.active {
-    background-color: #e9ebea;
-}
-
-.box-avatar img.avatar {
-    height: 60px;
-    border-radius: 50%;
-    margin: 0 5px;
-}
-.box-avatar .avatar-texts {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.box-avatar .avatar-name{
-    color: black;
-}
-.box-avatar .avatar-details{
-    color: #bdc6c3;
-}
-.orario-chat {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 16px;
-    color: #babab8;
+i {
+    cursor: pointer;
 }
 
 
@@ -63,6 +36,7 @@ input {
     background-color: #fff;
     z-index: -1;
 }
+
 #bg-top {
     background-color: #009788;
     height: 100px;
@@ -72,6 +46,7 @@ input {
     background-color: #dddad1;
     height: calc(100% - 100px);
 }
+
 /* --------------formattazione layout app */
 #app {
     position: relative;
@@ -86,9 +61,11 @@ input {
 #app-left {
     width: 35%;
 }
+
 #app-right {
     width: 65%;
 }
+
 .header {
     height: 90px;
     display: flex;
@@ -96,14 +73,34 @@ input {
     align-items: center;
     background-color: #eaeaea;
 }
-.header .box-avatar .avatar-details{
-    color: #6a717b;
+
+.header-left {
+    display: flex;
+    align-items: center;
 }
+
 .header-right i {
-    margin-right:20px;
+    margin-right: 20px;
     font-size: 24px;
     color: #b1b1b1;
 }
+
+.header img.avatar {
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.header .avatar-details {
+    color: #6a717b;
+    display: none;
+}
+
+.header .avatar-details.active {
+    color: #6a717b;
+    display: inline-block;
+}
+
 
 /* ------------ formattazione elementi app-left    */
 
@@ -115,6 +112,7 @@ input {
     align-items: center;
 
 }
+
 #notifiche i {
     background-color: #fff;
     padding: 15px;
@@ -125,18 +123,76 @@ input {
 }
 
 #ricerca {
-    height: 30px;
+    height: 40px;
     padding: 5px;
     background-color: #f9f9f9;
 }
+
 #ricerca-bordo {
     height: 100%;
     border: 1px solid #f3f3f3;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
 }
+
+#ricerca-bordo i {
+    margin: 0 20px;
+    color: #b8b6b5;
+}
+
+#ricerca-bordo #input-cerca {
+    width: 80%;
+    height: 100%;
+}
+
 #elenco-chat {
-    height: calc(100% - 210px);
+    height: calc(100% - 220px);
     overflow-y: scroll;
 }
+
+.box-avatar {
+    display: flex;
+    position: relative;
+    padding: 10px;
+}
+
+.box-avatar:hover {
+    background-color: #c1e5e9;
+}
+
+.box-avatar.active {
+    background-color: #e9ebea;
+}
+
+.box-avatar img.avatar {
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.box-avatar .avatar-texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.box-avatar .avatar-name {
+    color: black;
+}
+
+.box-avatar .avatar-details {
+    color: #bdc6c3;
+}
+
+.orario-chat {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    color: #babab8;
+}
+
 
 
 /* formattazione elementi app right */
@@ -152,4 +208,49 @@ input {
 #nuovo-messaggio {
     height: 60px;
     background-color: #f3eeea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nuovo-messaggio i {
+    color: #666e70;
+    margin: 0 20px;
+    font-size: 24px;
+    display: none;
+
+}
+
+#nuovo-messaggio i.active {
+    display: inline;
+}
+
+#input-message {
+    padding: 0 10px;
+    height: 45px;
+    width: 80%;
+    border-radius: 5px;
+}
+
+#chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 40px;
+}
+
+/*---------------- formattazione template  */
+.message {
+    padding: 10px;
+    align-items: flex-start;
+}
+
+.message.received {
+    background-color: #ffffff;
+}
+
+.message.sent {
+    background-color: #d5f9bb;
+    align-self: flex-end;
 }
