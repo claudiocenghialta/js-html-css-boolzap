@@ -52,7 +52,8 @@ i {
 /* --------------formattazione layout app */
 #app {
     position: relative;
-    margin: 3vh auto;
+    margin: 0 auto;
+    top: 3vh;
     height: 94vh;
     width: 80%;
     min-width: 1200px;
@@ -93,6 +94,8 @@ i {
     height: 60px;
     border-radius: 50%;
     margin: 0 5px;
+    object-fit: contain;
+    object-position: center;
 }
 
 .header .avatar-details {

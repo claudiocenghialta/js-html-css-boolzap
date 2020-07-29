@@ -31,14 +31,13 @@ $(document).ready(function () {
     $('#nuovo-messaggio i.fa-paper-plane').click(function () {
         chatta();
     })
-    $("#input-message").keydown(function (e) {
-        if (e.which == 13) {
+    $("#input-message").keydown(function (evento) {
+        if (evento.which == 13) {
             chatta();
         }
     });
 });
 
-//dopo 1 secondo genero un messaggio di risposta
 
 
 
@@ -50,11 +49,18 @@ function chatta() {
     var nuovoMessaggio = $('#input-message').val()
     if (nuovoMessaggio != '') {
         //NB escludo invio quando input è vuota
-        invioMessaggio(nuovoMessaggio, 'sent')
+        invioMessaggio(nuovoMessaggio, 'sent');
+        //faccio scroll dei messaggi in automatico
+        var posizione = $('#chat .message:last-child').position();
+        $('#chat').scrollTop(posizione.top);
+        //dopo 1 secondo genero un messaggio di risposta
         setTimeout(function () {
+            //risposta presa random da un array di risposte prestabilite
             invioMessaggio(arrayRisposte[random(0, arrayRisposte.length - 1)])
+            $('#chat').scrollTop(posizione.top);
         }, 1000);
-        $('#input-message').val('')
+        //reset campo input
+        $('#input-message').val('');
     }
 }
 //INVIO MESSAGGIO
@@ -74,8 +80,8 @@ function invioMessaggio(testo, tipo) {
 //ORA ESATTA
 function oraEsatta() {
     var d = new Date();
-    var ore = d.getHours()
-    var minuti = d.getMinutes()
+    var ore = d.getHours();
+    var minuti = d.getMinutes();
     if (minuti < 10) {
         minuti = '0' + minuti
     }
