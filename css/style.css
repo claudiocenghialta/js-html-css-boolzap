@@ -215,6 +215,19 @@ i {
     overflow-y: scroll;
 }
 
+#chat .chat-messages {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 40px;
+
+}
+
+#chat .chat-messages.active {
+    display: flex;
+}
+
 #nuovo-messaggio {
     height: 60px;
     background-color: #f3eeea;
@@ -243,20 +256,18 @@ i {
     border-radius: 5px;
 }
 
-#chat {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 20px 40px;
+/*---------------- formattazione template  */
+#templates {
+    display: none;
 }
 
-/*---------------- formattazione template  */
 .message {
     padding: 5px 10px;
     align-items: flex-start;
     border-radius: 10px;
     margin-bottom: 10px;
+    max-width: 60%;
+    min-width: 150px;
 }
 
 .message.received {
