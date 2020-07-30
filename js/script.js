@@ -27,20 +27,9 @@ $(document).ready(function () {
             $('#app-right .header-left .avatar-details').toggleClass('active');
         }, 100);
     })
-    $('.box-avatar').click(function () {
-        if (!$(this).hasClass('active')) {
-            //sposto la classe active nel box avatar selezionato
-            $('.box-avatar').removeClass('active');
-            $(this).addClass('active');
-            //calcolo posizione nell'elenco
-            var posizione = $(this).index();
-            console.log(posizione);
-            //sposto la classe active nel relativo chat-messages 
-            $('.chat-messages').removeClass('active');
-            $('.chat-messages').eq(posizione).addClass('active');
-        }
-    })
-    //al click o quando premo invio inizia la chat
+    //al click su una voce dell'elenco delle chat cambio chat
+    $('.box-avatar').click(selectChat);
+    //al click o quando premo invio mando il messaggio ed inizia la chat
     $('#nuovo-messaggio i.fa-paper-plane').click(function () {
         chatta();
     })
@@ -55,6 +44,8 @@ $(document).ready(function () {
 
 
 //FUNZIONI
+
+
 
 //CHAT 
 function chatta() {
@@ -87,13 +78,54 @@ function invioMessaggio(testo, tipo) {
     //clono template ed inserisco valore testo + orario
     var elemento = $('#templates .message').clone();
     elemento.find('.message-text').append(testo);
-    elemento.find('.message-hour').append(oraEsatta);
+    var orario = oraEsatta()
+    elemento.find('.message-hour').append(orario);
     if (tipo == 'sent') {
-        elemento.addClass('sent')
+        elemento.addClass('sent');
+        ultimoAccesso(testo, orario);
+        aggiornaDatiChat();
     } else {
-        elemento.addClass('received')
+        elemento.addClass('received');
+        ultimoAccesso(testo); //non passo l'orario così non cambia l'ora dell'ultimo accesso
     }
     $('#chat .chat-messages.active').append(elemento);
+}
+
+//select chat da elenco chat a sinistra
+function selectChat() {
+    if (!$(this).hasClass('active')) {
+        //sposto la classe active nel box avatar selezionato
+        $('.box-avatar').removeClass('active');
+        $(this).addClass('active');
+        //calcolo posizione nell'elenco
+        var posizione = $(this).index();
+        //sposto la classe active nel relativo chat-messages 
+        $('.chat-messages').removeClass('active');
+        $('.chat-messages').eq(posizione).addClass('active');
+        aggiornaDatiChat();
+    }
+}
+
+//aggiorno dati testata chat su parte destra dell'app
+function aggiornaDatiChat() {
+    //cambio nome su chat a destra
+    console.log('ciao');
+    var nome = $('.box-avatar.active').find('.avatar-name').text();
+    $('#app-right .header-left .avatar-name').text(nome);
+    //cambio immagine su chat a destra
+    var immagine = $('.box-avatar.active').find('img.avatar').attr('src');
+    $('#app-right .header-left img.avatar').attr('src', immagine);
+    var orario = $('.box-avatar.active').find('.orario-chat').text();
+    $('#app-right .header-left .avatar-details.orario').text('Ultimo accesso oggi alle ' + orario);
+}
+
+//aggiorno ultimo messaggio ed ultimo accesso su elenco chat a sinistra
+function ultimoAccesso(messaggio, orario) {
+    //aggiorno ultimo messaggio su elenco chato e ora ultimo accesso
+    $('#elenco-chat .box-avatar.active .avatar-details').text(messaggio);
+    if (orario != '') {
+        $('#elenco-chat .box-avatar.active .orario-chat').text(orario);
+    }
 }
 
 //ORA ESATTA
