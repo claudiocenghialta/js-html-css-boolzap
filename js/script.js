@@ -12,6 +12,7 @@ var arrayRisposte = [
     'ciao',
     'buona giornata'
 ];
+var timeoutRisposta = 1 //valore espresso in secondi
 
 
 $(document).ready(function () {
@@ -53,42 +54,49 @@ function chatta() {
     var nuovoMessaggio = $('#input-message').val()
     if (nuovoMessaggio != '') {
         //NB escludo invio quando input è vuota
-        invioMessaggio(nuovoMessaggio, 'sent');
+        var indiceChat = $('#chat .chat-messages.active').index()
+        invioMessaggio(nuovoMessaggio, 'sent', indiceChat);
         //faccio scroll dei messaggi in automatico
-        scrollChat();
+        scrollChat(indiceChat);
+        //memorizzo l'indice della chat attiva
         //dopo 1 secondo genero un messaggio di risposta
+        //lo devo generare nella chat con indice preso in precedenza, 
+        //perchè se nel frattempo ho cambiato chat la risposta 
+        //arriverebbe sulla chat sbagliata
         setTimeout(function () {
             //risposta presa random da un array di risposte prestabilite
-            invioMessaggio(arrayRisposte[random(0, arrayRisposte.length - 1)]);
-            scrollChat();
-        }, 1000);
+            invioMessaggio(arrayRisposte[random(0, arrayRisposte.length - 1)], 'received', indiceChat);
+            scrollChat(indiceChat);
+        }, (timeoutRisposta * 1000));
         //reset campo input
         $('#input-message').val('');
     }
 }
 
 //SCROLL AUTOMATICO MESSAGGI CHAT
-function scrollChat() {
-    var posizione = $('#chat .chat-messages.active .message:last-child').position();
+function scrollChat(indiceChat) {
+    var posizione = $('#chat .chat-messages').eq(indiceChat).find('.message:last-child').position();
+    console.log(posizione);
     $('#chat').scrollTop(posizione.top);
 }
 
 //INVIO MESSAGGIO
-function invioMessaggio(testo, tipo) {
+function invioMessaggio(testo, tipo, indiceChat) {
     //clono template ed inserisco valore testo + orario
+    console.log(indiceChat);
     var elemento = $('#templates .message').clone();
     elemento.find('.message-text').append(testo);
     var orario = oraEsatta()
     elemento.find('.message-hour').append(orario);
     if (tipo == 'sent') {
         elemento.addClass('sent');
-        ultimoAccesso(testo, orario);
-        aggiornaDatiChat();
+        ultimoAccesso(testo, indiceChat, orario);
+        aggiornaDatiChat(indiceChat);
     } else {
         elemento.addClass('received');
-        ultimoAccesso(testo); //non passo l'orario così non cambia l'ora dell'ultimo accesso
+        ultimoAccesso(testo, indiceChat); //non passo l'orario così non cambia l'ora dell'ultimo accesso
     }
-    $('#chat .chat-messages.active').append(elemento);
+    $('#chat .chat-messages').eq(indiceChat).append(elemento);
 }
 
 //select chat da elenco chat a sinistra
@@ -102,29 +110,30 @@ function selectChat() {
         //sposto la classe active nel relativo chat-messages 
         $('.chat-messages').removeClass('active');
         $('.chat-messages').eq(posizione).addClass('active');
-        aggiornaDatiChat();
+        aggiornaDatiChat(posizione);
     }
 }
 
 //aggiorno dati testata chat su parte destra dell'app
-function aggiornaDatiChat() {
+function aggiornaDatiChat(indiceChat) {
     //cambio nome su chat a destra
-    console.log('ciao');
-    var nome = $('.box-avatar.active').find('.avatar-name').text();
+    var elemento = $('.box-avatar').eq(indiceChat)
+    var nome = elemento.find('.avatar-name').text();
     $('#app-right .header-left .avatar-name').text(nome);
     //cambio immagine su chat a destra
-    var immagine = $('.box-avatar.active').find('img.avatar').attr('src');
+    var immagine = elemento.find('img.avatar').attr('src');
     $('#app-right .header-left img.avatar').attr('src', immagine);
-    var orario = $('.box-avatar.active').find('.orario-chat').text();
+    var orario = elemento.find('.orario-chat').text();
     $('#app-right .header-left .avatar-details.orario').text('Ultimo accesso oggi alle ' + orario);
 }
 
 //aggiorno ultimo messaggio ed ultimo accesso su elenco chat a sinistra
-function ultimoAccesso(messaggio, orario) {
+function ultimoAccesso(messaggio, indiceChat, orario) {
     //aggiorno ultimo messaggio su elenco chato e ora ultimo accesso
-    $('#elenco-chat .box-avatar.active .avatar-details').text(messaggio);
+    var elemento = $('#elenco-chat .box-avatar').eq(indiceChat)
+    elemento.find('.avatar-details').text(messaggio);
     if (orario != '') {
-        $('#elenco-chat .box-avatar.active .orario-chat').text(orario);
+        elemento.find('.orario-chat').text(orario);
     }
 }
 
