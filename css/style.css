@@ -268,6 +268,7 @@ i {
     margin-bottom: 10px;
     max-width: 60%;
     min-width: 150px;
+    word-wrap: break-word;
 }
 
 .message.received {
