@@ -152,10 +152,16 @@ $(document).ready(function () {
         var d = new Date();
         var ore = d.getHours();
         var minuti = d.getMinutes();
-        if (minuti < 10) {
-            minuti = '0' + minuti
-        }
+        ore = aggiungiZero(ore)
+        minuti = aggiungiZero(minuti)
         return ore + ':' + minuti;
+    }
+
+    function aggiungiZero(dato) {
+        if (dato < 10) {
+            return '0' + dato
+        }
+
     }
 
     //RANDOM
