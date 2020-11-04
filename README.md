@@ -1,6 +1,8 @@
-js-html-css-boolzap
+**Replica di Whatsapp Web (HTML - CSS - JS - JQUERY)**
 
-Replica di whatsapp web (HTML - CSS - JS - JQUERY)
+![Preview Immagini](preview-whatsapp.gif "Whatsapp Web")
+
+**_Funzioni implementate:_**
 
 - invio di un messaggio
 - ricezione risposta in automatico dopo 1 secondo (random da un array)
